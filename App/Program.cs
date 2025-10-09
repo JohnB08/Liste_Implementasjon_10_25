@@ -13,6 +13,19 @@ StringStorer.StoredValue = "Hello, world!";
 
 List<float> floats = [];
 
+WeaponList<int> weaponList = new();
+
+weaponList[2] = 234;
+Console.WriteLine(weaponList[2]);
+
+for (int i = 0; i < 50; i++)
+{
+    weaponList.InsertNewWeapon(i);
+}
+
+
+
+
 /* Målet vårt for uken er å lage en generisk våpenliste, som kan ta inn forskjellige våpen og lagre disse for oss. Nedenfor ser du eksempler på hvor vi vil være tilslutt. */
 
 /* WeaponList<LongSword> longSwords = [];
