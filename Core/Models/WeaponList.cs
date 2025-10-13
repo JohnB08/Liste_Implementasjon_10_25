@@ -1,12 +1,15 @@
 using System;
+using Core.Interfaces;
 
 namespace Core.Models;
 
 /* Vårt mål på torsdag er å implementere en listetype vi kaller WeaponList som tar inn, og jobber med typen TWeapon. */
-public class WeaponList<TWeapon>(int capacity = 10, int growthFactor = 5)
-{
+public class WeaponList<TWeapon>(int capacity = 10, int growthFactor = 5): IWeaponList<TWeapon> where TWeapon : IWeapon
+    {
     /* Her skal vi sette opp måter å lagre store mengder av TWeapons typen, samt måter å behandle de på. */
     private TWeapon[] _data = new TWeapon[capacity];
+
+    public int Length => _data.Length;
 
     /// <summary>
     /// Vi trenger en måte å holde oversikt over neste ledige plass i arrayet vårt,

@@ -1,9 +1,10 @@
 
 using System;
+using Core.Interfaces;
 
 namespace Core.Models;
 
-public class GreatAxe
+public class GreatAxe : BaseWeapon
 {
-
+    
 }

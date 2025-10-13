@@ -1,8 +1,6 @@
-using System;
-
 namespace Core.Models;
 
-public class UltraGreatSword
+public class UltraGreatSword : BaseWeapon
 {
-
+    public int Length { get; set; }
 }

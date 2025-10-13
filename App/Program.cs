@@ -13,6 +13,7 @@ StringStorer.StoredValue = "Hello, world!";
 
 List<float> floats = [];
 
+/* 
 WeaponList<int> weaponList = new();
 
 weaponList[2] = 234;
@@ -21,8 +22,27 @@ Console.WriteLine(weaponList[2]);
 for (int i = 0; i < 50; i++)
 {
     weaponList.InsertNewWeapon(i);
+} 
+
+!!! Vi må nå bruke IWeapons i WeaponList
+
+*/
+
+
+var ultraGS = new UltraGreatSword();
+
+WeaponList<UltraGreatSword> ultraGreatSwords = new();
+
+ultraGreatSwords.InsertNewWeapon(ultraGS);
+
+for (int i = 0; i < ultraGreatSwords.Length; i++)
+{
+    Console.WriteLine(ultraGreatSwords[i].Length);
 }
 
+var nums = floats.Select(f => f > 0);
+
+foreach (var number in floats) Console.WriteLine(number);
 
 
 

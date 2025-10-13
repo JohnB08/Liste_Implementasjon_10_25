@@ -1,8 +1,9 @@
 using System;
+using Core.Interfaces;
 
 namespace Core.Models;
 
-public class Broadsword
+public class Broadsword : BaseWeapon
 {
-
+    
 }
