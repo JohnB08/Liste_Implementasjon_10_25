@@ -4,7 +4,7 @@ using Core.Interfaces;
 namespace Core.Models;
 
 /* Vårt mål på torsdag er å implementere en listetype vi kaller WeaponList som tar inn, og jobber med typen TWeapon. */
-public class WeaponList<TWeapon>(int capacity = 10, int growthFactor = 5): IWeaponList<TWeapon> where TWeapon : IWeapon
+public class WeaponList<TWeapon>(int capacity = 0, int growthFactor = 1): IWeaponList<TWeapon> where TWeapon : IWeapon
     {
     /* Her skal vi sette opp måter å lagre store mengder av TWeapons typen, samt måter å behandle de på. */
     private TWeapon[] _data = new TWeapon[capacity];
@@ -73,5 +73,9 @@ public class WeaponList<TWeapon>(int capacity = 10, int growthFactor = 5): IWeap
     /// <param name="index">Dette er indexen i det underliggende arrayet vi prøver å eksponere ut for brukeren av datastrukturen vår. </param>
     /// <returns>Verdien i index.</returns>
     /// <exception cref="IndexOutOfRangeException"></exception>
-    public TWeapon this[int index] { get => index >= _capacity ? throw new IndexOutOfRangeException() : _data[index]; set => _data[index] = value; }
+    public TWeapon this[int index] { get
+        {
+            if (index >= _capacity) throw new IndexOutOfRangeException();
+            return _data[index]; 
+        } set => _data[index] = value; }
 }
