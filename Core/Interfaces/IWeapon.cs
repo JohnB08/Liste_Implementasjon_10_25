@@ -7,5 +7,11 @@ public interface IWeapon
     public double Shinyness { get; set; }
 
     public double ChanceOfFlisFromWoodShaft { get; set; }
+
+    public string CritEffect();
+
+    public int CritPercentageChance { get; }
+    
+    public int CritPercentageDamage { get; }
     
 }

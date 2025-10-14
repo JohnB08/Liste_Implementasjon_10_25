@@ -5,5 +5,5 @@ namespace Core.Models;
 
 public class Axe : BaseWeapon
 {
-    
+    public override string CritEffect() => "HAHAHAHA!";
 }
