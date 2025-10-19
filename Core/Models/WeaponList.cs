@@ -1,10 +1,11 @@
 using System;
+using System.Collections;
 using Core.Interfaces;
 
 namespace Core.Models;
 
 /* Vårt mål på torsdag er å implementere en listetype vi kaller WeaponList som tar inn, og jobber med typen TWeapon. */
-public class WeaponList<TWeapon>(int capacity = 0, int growthFactor = 1): IWeaponList<TWeapon> where TWeapon : IWeapon
+public class WeaponList<TWeapon>(int capacity = 0, int growthFactor = 1):IEnumerable<TWeapon>, IWeaponList<TWeapon> where TWeapon : IWeapon
     {
     /* Her skal vi sette opp måter å lagre store mengder av TWeapons typen, samt måter å behandle de på. */
     private TWeapon[] _data = new TWeapon[capacity];
@@ -63,6 +64,21 @@ public class WeaponList<TWeapon>(int capacity = 0, int growthFactor = 1): IWeapo
         //Vi dekrementer også index og sier den posisjonen er "ledig". 
         var weapon = _data[--_indexOfSpareSpaceInData];
         return weapon;
+    }
+
+    /// <summary>
+    /// Her lager vi en enkel enumerator som yielder hvert item i _data arrayet vårt. 
+    /// yield er et kult nøkkelord som lar oss returne ut fra en loop, men legge igjen en bookmark som sier hvor vi skal starte igjen neste gang metoden blir kallet. 
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator<TWeapon> GetEnumerator()
+    {
+        foreach (var item in _data) yield return item;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 
     /// <summary>

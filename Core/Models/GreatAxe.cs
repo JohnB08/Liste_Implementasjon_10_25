@@ -4,7 +4,7 @@ using Core.Interfaces;
 
 namespace Core.Models;
 
-public class GreatAxe : BaseWeapon
+public class GreatAxe() : BaseWeapon
 {
     
 }

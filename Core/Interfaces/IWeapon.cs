@@ -10,8 +10,14 @@ public interface IWeapon
 
     public string CritEffect();
 
-    public int CritPercentageChance { get; }
+    public double CritPercentageChance { get; }
     
-    public int CritPercentageDamage { get; }
+    public double CritPercentageDamage { get; }
+
+    public bool CalculateIfCrit();
+
+    public double DamageModifier { get; set; }
+
+    public double DealDamage();
     
 }

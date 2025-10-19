@@ -93,15 +93,14 @@ public class WeaponListTest
     public void FilterThroughAndSelectWeaponBasedOnProperty()
     {
         var list = new WeaponList<Axe>();
-        var weapon = new Axe()
-        {
-            Shinyness = 0.90
-        };
+        var weapon = new Axe("WoodSplitter");
 
         list.InsertNewWeapon(weapon);
 
 
-        var found = list.Find(axe => axe.Shinyness == 0.90);
+
+        //Siden listen vår nå implementerer IEnumerable kan vi plutselig få tilgang til hele LinQ apiet på vår datatype. 
+        var found = list.FirstOrDefault(axe => axe.Name == "WoodSplitter");
 
         Assert.NotNull(found);
     }
