@@ -90,6 +90,14 @@ public class WeaponListTest
     }
 
     [Fact]
+    public void TryInsertingOutOfBoundsShowThrow()
+    {
+        var list = new WeaponList<Longsword>();
+        Assert.Throws<IndexOutOfRangeException>(() => list[50] = new Longsword());
+        
+    }
+
+    [Fact]
     public void FilterThroughAndSelectWeaponBasedOnProperty()
     {
         var list = new WeaponList<Axe>();

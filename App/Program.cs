@@ -3,46 +3,22 @@ using Core.Models;
 
 Console.WriteLine("Hello, World!");
 
-/* Her ser du at vår GenericEntity får vite at den skal jobbe med int datatypen i IntStorer */
-GenericEntity<int> IntStorer = new();
-IntStorer.StoredValue = 10;
+var client = new HttpClient();
 
-/* Og skal jobbe med string datatypen i StringStorer */
-GenericEntity<string> StringStorer = new();
-StringStorer.StoredValue = "Hello, world!";
+var response = await client.GetAsync("https://www.nrk.no");
 
-List<float> floats = [];
+Console.WriteLine(response.IsSuccessStatusCode);
 
-/* 
-WeaponList<int> weaponList = new();
+Console.WriteLine(response.StatusCode);
 
-weaponList[2] = 234;
-Console.WriteLine(weaponList[2]);
+var headers = response.Content.Headers;
 
-for (int i = 0; i < 50; i++)
-{
-    weaponList.InsertNewWeapon(i);
-} 
+Console.WriteLine(headers.ContentType);
 
-!!! Vi må nå bruke IWeapons i WeaponList
+Console.WriteLine(headers.ContentLength);
 
-*/
-
-
-var ultraGS = new UltraGreatSword();
-
-WeaponList<UltraGreatSword> ultraGreatSwords = new();
-
-ultraGreatSwords.InsertNewWeapon(ultraGS);
-
-for (int i = 0; i < ultraGreatSwords.Length; i++)
-{
-    Console.WriteLine(ultraGreatSwords[i].Length);
-}
-
-var nums = floats.Select(f => f > 0);
-
-foreach (var number in floats) Console.WriteLine(number);
+using var fileStream = File.Create("result.html");
+await response.Content.CopyToAsync(fileStream);
 
 
 
