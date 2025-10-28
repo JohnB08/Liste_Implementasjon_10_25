@@ -4,6 +4,7 @@ namespace Core.Models;
 
 public class BaseWeapon : IWeapon
 {
+    public Guid Id { get; init; } = Guid.NewGuid();
     private string _name = "Unnamed Weapon";
     public string Name { get => _name; set => _name = _validateName(value); }
     /// <summary>

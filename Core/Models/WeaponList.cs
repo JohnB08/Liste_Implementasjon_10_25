@@ -89,9 +89,19 @@ public class WeaponList<TWeapon>(int capacity = 0, int growthFactor = 1):IEnumer
     /// <param name="index">Dette er indexen i det underliggende arrayet vi prøver å eksponere ut for brukeren av datastrukturen vår. </param>
     /// <returns>Verdien i index.</returns>
     /// <exception cref="IndexOutOfRangeException"></exception>
-    public TWeapon this[int index] { get
+    public TWeapon this[int index]
+    {
+        get
         {
             if (index >= _capacity) throw new IndexOutOfRangeException();
-            return _data[index]; 
-        } set => _data[index] = value; }
+            return _data[index];
+        }
+        set => _data[index] = value;
+    }
+        
+    public void RemoveRange(params TWeapon[] removeWeapon)
+    {
+
+        _data = [.. _data.Except(removeWeapon)];
+    }
 }

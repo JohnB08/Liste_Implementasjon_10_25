@@ -1,6 +1,8 @@
 namespace Core.Interfaces;
 public interface IWeapon
 {
+    public string Name{ get; set; }
+    public Guid Id { get; init; }
     public int DexReq { get; set; }
     public int StrengthReq { get; set; }
 
