@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using API.Database;
+using API.Extensions;
 using Core.Interfaces;
 using Core.Models;
 using Microsoft.AspNetCore.Http;
@@ -7,56 +10,41 @@ namespace API.Controllers;
 
 [Route("api/[controller]/")]
 [ApiController]
-public class WeaponListController(IWeaponListService<IWeapon> weaponList) : ControllerBase
+public class WeaponListController(WeaponListDatabase weaponList) : ControllerBase
 {
     [HttpGet("")] //representerer at denne metoden skal matches mot en GET request til http://localhost:5070/api/weaponlist/
     public IActionResult Get() => Ok(weaponList.Get());
 
     [HttpGet("{id:guid}")]
-    public IActionResult GetById(Guid id)
-    {
-        var potential = weaponList.GetById(id);
-        if (potential is { } found) return Ok(found);
-        return NotFound();
-    }
+    public async Task<IActionResult> GetById(Guid id) => Ok(await weaponList.GetWeaponById(id));
 
     [HttpPost("")]
-    public IActionResult Post([FromQuery] string type, [FromQuery] string name)
+    public async Task<IActionResult> Post([FromQuery] string type, [FromQuery] string name)
     {
         var normalizedType = type.Trim().ToLower();
-        IWeapon? newWeapon = normalizedType switch
-        {
-            "axe" => new Axe(name),
-            "broadsword" => new Broadsword(name),
-            "greathammer" => new GreatHammer(name),
-            _ => default,
-        };
-        if (newWeapon is null) return BadRequest();
-        weaponList.AddWeapon(newWeapon);
-        return Created(nameof(weaponList), newWeapon);
+        await weaponList.AddWeapon(normalizedType, name);
+        return Ok();
     }
 
     [HttpPatch("{id:guid}")]
-    public IActionResult Patch(Guid id, [FromQuery] string newName)
+    public async Task<IActionResult> Patch(Guid id, [FromQuery] string newName)
     {
-        if (weaponList.GetById(id) is null) return NotFound();
-        weaponList.PatchWeapon(id, newName);
+        await weaponList.PatchWeaponById(id,newName);
         return Ok();
     }
 
     [HttpDelete("{id:guid}")]
-    public IActionResult Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        if (weaponList.GetById(id) is null) return NotFound();
-        weaponList.DeleteWeapon(id);
+        await weaponList.DeleteWeaponById(id);
         return Ok();
     }
 
     [HttpGet("{id:guid}/damage")]
-    public IActionResult GetDamageById(Guid id)
+    public async  Task<IActionResult> GetDamageById(Guid id)
     {
-        if (weaponList.GetById(id) is null) return NotFound();
-        return Ok(weaponList.GetWeaponDamageById(id));
+        if (await weaponList.GetWeaponById(id) is not { } foundWeapon) return NotFound();
+        return Ok(foundWeapon.DealDamage());
     }
 
 

@@ -1,6 +1,8 @@
+using API.Database;
 using Core.Interfaces;
 using Core.Models;
 using Core.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,10 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IWeaponListService<IWeapon>, WeaponListService<IWeapon>>();
 builder.Services.AddControllers();
+builder.Services.AddDbContext<WeaponListDatabase>(opts =>
+{
+    opts.UseSqlite("Data Source=weapondb.db");
+});
 
 var app = builder.Build();
 
